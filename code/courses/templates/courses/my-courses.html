@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block header %} My Courses  {% endblock %}
+
+{% block content %}
+
+
+<div class="container p-3">
+  <ul class="list-group">
+  {% for course in user_courses %}
+  <a  class="list-group-item list-group-item-action" href="{% url "learn_course" course.meta.id %}"> {{ course.title }} </a>
+  {% empty %}
+      <li>No courses yet.</li>
+  {% endfor %}
+  </ul>
+</container>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}{{ object.data.fields.seo.title }}{% endblock %}
+{% block description %}{{ object.seo.description }}{% endblock %}
+
+{% block header %} {{ object.data.fields.title }} {% endblock %}
+
+{% block content %}
+
+  <div class="container">
+    <h2 class="my-3"> Prerequisites </h2>
+
+    <!-- Loop through the repeater prerequisite field -->
+    <ul class="list-group"> 
+      {% for prerequisite in object.data.fields.prerequisites %}
+        <li class="list-group-item"> {{ prerequisite.name }} </li>
+      {% endfor %}
+    </ul>
+
+    <h2 class="my-3"> Description </h2>
+    <p>
+      {{ object.data.fields.seo.description }}
+    </p>
+    <h2 class="my-3"> Reviews </h2>
+    <div >
+      {% for review in object.data.fields.reviews %}
+      <figure>
+        <blockquote class="blockquote">
+          <p>"{{ review.review }}"</p>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+          {{ review.reviewer_name }}
+        </figcaption>
+      </figure>
+      {% endfor %}
+    </div>
+    <form method="post">
+      {{ form.errors }}
+      {% csrf_token %}
+
+      <input type="hidden" name="{{ form.student.html_name }}" value="{{ user.student.id }}"/>
+      <input type="hidden" name="{{ form.butter_id.html_name }}" value="{{ object.data.fields.course.meta.id }}"/>
+      <input type="hidden" name="{{ form.current_chapter.html_name }}" value="{{ object.data.fields.course.chapters.0.meta.id }}"/>
+
+      <input type="submit" value="Start Course">
+    </form>
+  </div>
+{% endblock %}

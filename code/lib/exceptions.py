@@ -1,0 +1,2 @@
+class MissingButterCMSToken(Exception):
+    pass
