@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %} {{ course.title }} {% endblock %}
+{% block header %}{{ course.title }}   {% endblock %}
+
+{% block content %}
+
+  <div class="container">
+
+    <h2 class="my-3">{{ current_chapter.title }}</h2>
+
+    {{ current_chapter.chapter_content|safe }}
+    {% if current_chapter.next_chapter %}
+    <form method="post">
+      {{ form.errors }}
+      {% csrf_token %}
+
+      <input  type="hidden" name="{{ form.current_chapter.html_name }}" value="{{ current_chapter.next_chapter.meta.id }}">
+
+      <input class="btn btn-primary" type="submit" value="Complete Chapter">
+    </form>
+    {% endif %}
+  </div>
+{% endblock %}

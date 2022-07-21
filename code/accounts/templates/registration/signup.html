@@ -1,0 +1,41 @@
+
+{% extends "base.html" %}
+
+{% block header %} Sign Up {% endblock %}
+{% block content %}
+
+<div class="container">
+
+  <div class="d-flex justify-content-center align-items-center">
+    <form class="w-50" method="post" >
+      {% csrf_token %}
+      <div class="form-group my-4">
+
+        <label class="form-label" for="{{ form.username.id_for_label }}">Username</label>
+        <input type="text" class="form-control" id="{{ form.username.id_for_label }}"  name="{{ form.username.html_name }}" placeholder="BestStudent">
+        {% for error in form.username.errors %}
+          <p style="form-text red-500">{{ error }}</p>
+        {% endfor %}
+      </div>
+
+      <div class="form-group my-4">
+        <label class="form-label" for="{{ field.id_for_label }}">Password</label>
+        <input type="password" class="form-control" id="{{ form.password1.id_for_label }}"  name="{{ form.password1.html_name }}" >
+        {% for error in form.password1.errors %}
+          <p style="form-text red-500">{{ error }}</p>
+        {% endfor %}
+      </div>
+      <div class="form-group my-4">
+        <label class="form-label" for="{{ field.id_for_label }}">Confirm Password</label>
+        <input type="password" class="form-control" id="{{ form.password2.id_for_label }}"  name="{{ form.password2.html_name }}" >
+        {% for error in form.password2.errors %}
+          <p style="form-text red-500">{{ error }}</p>
+        {% endfor %}
+      </div>
+      <input class="btn btn-primary" type="submit" value="login">
+      <input type="hidden" name="next" value="{{ next }}">
+    </form>
+  </div>
+
+  {% endblock %}
+</div>
